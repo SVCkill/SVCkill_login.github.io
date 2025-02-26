@@ -6,6 +6,37 @@
     <title>Rejestracja - SVCkill</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+    <script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+  // Konfiguracja Firebase
+  const firebaseConfig = {
+  apiKey: "AIzaSyBFjiGzBDGjStru3gAo2eEh6GXLqDzy4Do",
+  authDomain: "svccomet.firebaseapp.com",
+  projectId: "svccomet",
+  storageBucket: "svccomet.firebasestorage.app",
+  messagingSenderId: "388894140528",
+  appId: "1:388894140528:web:c0240da9afbf62197d2cb5"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  document.getElementById("register-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const email = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        alert("Rejestracja udana!");
+      })
+      .catch((error) => {
+        alert("Błąd: " + error.message);
+      });
+  });
+</script>
 <body class="bg-gray-900 flex items-center justify-center min-h-screen">
     <div class="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 class="text-center text-xl font-semibold text-white">Zarejestruj się w SVCkill</h2>
