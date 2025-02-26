@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logowanie - SVCkill</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="text-center text-xl font-semibold text-white">Zaloguj się do SVCkill</h2>
+        <form id="login-form" class="mt-4">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300">Nazwa użytkownika</label>
+                    <input type="text" id="username" class="w-full px-4 py-2 mt-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300">Hasło</label>
+                    <input type="password" id="password" class="w-full px-4 py-2 mt-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-white" required>
+                </div>
+                <button type="submit" class="w-full py-2 font-semibold text-white bg-blue-600 rounded-lg">Zaloguj się</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        // Konfiguracja Firebase
+        const firebaseConfig = {
+			apiKey: "AIzaSyBFjiGzBDGjStru3gAo2eEh6GXLqDzy4Do",
+			authDomain: "svccomet.firebaseapp.com",
+			projectId: "svccomet",
+			storageBucket: "svccomet.firebasestorage.app",
+			messagingSenderId: "388894140528",
+			appId: "1:388894140528:web:c0240da9afbf62197d2cb5"
+        };
+
+        // Inicjalizacja Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.getAuth(app);
+
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value + "@svckill.com"; // Dodaj domenę
+            const password = document.getElementById('password').value;
+
+            // Logowanie użytkownika
+            auth.signInWithEmailAndPassword(auth, username, password)
+                .then((userCredential) => {
+                    alert("Logowanie udane!");
+                    // Tutaj możesz przekierować użytkownika do aplikacji lub innej strony
+                })
+                .catch((error) => {
+                    alert("Błąd: " + error.message);
+                });
+        });
+    </script>
+</body>
+</html>
